@@ -1,0 +1,38 @@
+name: Django CI
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 4
+      matrix:
+        python-version: [3.8, 3.9]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}:
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Run Tests
+      run: |
+        python manage.py test
+    - name: Upload a Build Artifact
+      - run: |	
+        mkdir -p ${{ github.workspace }}/artifact
+      uses: actions/upload-artifact@v2.2.2
+      with:
+        # Artifact name
+        name: # optional, default is artifact
+        # A file, directory or wildcard pattern that describes what to upload
+        path: ${{ github.workspace }}/artifact/**/*
+    

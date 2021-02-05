@@ -7,7 +7,7 @@
 * Install `python` via brew
 * Clone the repo
 * cd into repo
-* Install `pipenv` using  `brew` 
+* Install `pipenv` using  `brew`
 
 ```
 brew install pipenv
@@ -36,6 +36,12 @@ pipenv shell
 pipenv install
 ```
 
+* Install the pre-commit hooks
+
+```
+pre-commit install
+```
+
 ```
 python manage.py migrate
 ```
@@ -54,5 +60,3 @@ python manage.py runserver
 ```
 python manage.py test
 ```
-
-

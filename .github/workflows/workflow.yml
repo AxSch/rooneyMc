@@ -23,12 +23,18 @@ jobs:
       uses: VaultVulp/action-pipenv@v2.0.1
       with:
         command: install -d
-    - name: Run Tests
-      run: |
-        python manage.py test
-    - name: Upload a Build Artifact
-      run: |
-        mkdir -p ${{ github.workspace }}/artifact
-      uses: actions/upload-artifact@v2.2.2
-      with:
-        path: ${{ github.workspace }}/artifact/**/*
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Tests
+        run: |
+          python manage.py test
+  artifact:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Upload a Build Artifact
+        run: |
+          mkdir -p ${{ github.workspace }}/artifact
+        uses: actions/upload-artifact@v2.2.2
+        with:
+          path: ${{ github.workspace }}/artifact/**/*

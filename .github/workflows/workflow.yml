@@ -1,21 +1,21 @@
-name: Django CI
-
-on:
-  pull_request:
-    branches: [ main ]
-
+name: build-rooneyMc
+on: [push, pull_request]
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Python Code Quality and Lint
+        uses: ricardochaves/python-lint@v1.3.0
   build:
-
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 4
       matrix:
         python-version: [3.8, 3.9]
-
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Python ${{ matrix.python-version }}:
+    - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
@@ -27,12 +27,8 @@ jobs:
       run: |
         python manage.py test
     - name: Upload a Build Artifact
-      - run: |	
+      run: |
         mkdir -p ${{ github.workspace }}/artifact
       uses: actions/upload-artifact@v2.2.2
       with:
-        # Artifact name
-        name: # optional, default is artifact
-        # A file, directory or wildcard pattern that describes what to upload
         path: ${{ github.workspace }}/artifact/**/*
-    

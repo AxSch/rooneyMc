@@ -38,7 +38,8 @@ jobs:
             - "/usr/local/lib/python3.9/site-packages"
       - run:
           command: |
-            pipenv run flake8 ./ --output-file lint-reports
+            pipenv shell
+            flake8 ./ --output-file lint-reports
       - store_artifacts:
           path: lint-reports
           destination: test-reports

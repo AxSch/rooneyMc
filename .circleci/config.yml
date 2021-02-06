@@ -39,7 +39,7 @@ jobs:
       - run:
           command: |
             pipenv shell
-            flake8 .
+            flake8 ./backend
   build:
     docker:
       - image: circleci/python:3.9

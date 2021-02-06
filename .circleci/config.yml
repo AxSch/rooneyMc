@@ -18,6 +18,7 @@ jobs:
           POSTGRES_USER: root
           POSTGRES_DB: rooneyMc
           SECRET_KEY: $SECRET_KEY
+          POSTGRES_PASSWORD: $POSTGRES_PASSWORD
     steps:
       - checkout
       - run: sudo chown -R circleci:circleci /usr/local/bin

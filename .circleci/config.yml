@@ -39,7 +39,7 @@ jobs:
       - run:
           command: |
             pipenv shell
-            flake8 ./ --output-file lint-reports
+            flake8 ./ tests --output-file lint-reports
       - store_artifacts:
           path: lint-reports
           destination: test-reports

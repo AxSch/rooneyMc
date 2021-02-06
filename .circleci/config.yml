@@ -1,7 +1,7 @@
 version: 2.1
 
 jobs:
-  build:
+  lint:
     working_directory: ~/project
     docker:
       - image: circleci/python:3.9
@@ -38,5 +38,29 @@ jobs:
             - "/usr/local/lib/python3.9/site-packages"
       - run:
           command: |
+            pipenv run flake8 ./ --output-file lint-reports
+      - store_artifacts:
+          path: lint-reports
+          destination: test-reports
+  build:
+    docker:
+      - image: circleci/python:3.9
+        auth:
+          username: axsch
+          password: $DOCKERHUB_PASSWORD
+    working_directory: ~/project
+
+    steps:
+      - checkout
+      - run:
+          command: |
             pipenv run python ./backend/manage.py test
           name: Tests
+
+workflows:
+  build-deploy:
+    jobs:
+      - lint
+      - build:
+          requires:
+            - lint

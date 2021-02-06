@@ -15,7 +15,7 @@ jobs:
         environment:
           DATABASE_URL: $DATABASE_URL
           PIPENV_VENV_IN_PROJECT: "true"
-          POSTGRES_USER: root
+          POSTGRES_USER: postgres
           POSTGRES_DB: rooneyMc
           SECRET_KEY: $SECRET_KEY
           POSTGRES_PASSWORD: $POSTGRES_PASSWORD

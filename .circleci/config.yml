@@ -13,11 +13,9 @@ jobs:
       - run:
           command: |
             pip install flake8
-            pip install black
       - run:
           command:
             flake8 ./backend/
-            black ./backend/
   build:
     working_directory: ~/project
     docker:

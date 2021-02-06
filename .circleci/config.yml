@@ -39,10 +39,7 @@ jobs:
       - run:
           command: |
             pipenv shell
-            flake8 ./ tests --output-file lint-reports
-      - store_artifacts:
-          path: lint-reports
-          destination: test-reports
+            flake8 .
   build:
     docker:
       - image: circleci/python:3.9

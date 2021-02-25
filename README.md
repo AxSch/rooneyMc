@@ -60,3 +60,14 @@ python manage.py runserver
 ```
 python manage.py test
 ```
+## Set up .env file
+* To set up your env file set up your variable names like this
+```
+SECRET_KEY=
+PASSWORD=
+HOST=
+USER=
+NAME=
+DEV=
+PROD=
+```

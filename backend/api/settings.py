@@ -19,7 +19,13 @@ env = environ.Env(
     DATABASE_URL=(str, "postgres://postgres:postgres@localhost/postgres"),
     DATABASE_RO_URL=(str, "postgres://postgres:postgres@localhost/postgres"),
     CACHE_URL=(str, "redis://localhost/1"),
-    DEBUG=(bool, False),
+    DEBUG=(bool, True),
+    DEV=(bool, False),
+    PROD=(bool, False),
+    NAME=(str, ""),
+    PASSWORD=(str, ""),
+    HOST=(str, ""),
+    USER=(str, ""),
 )
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -34,6 +40,12 @@ SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env("DEBUG")
+DEV = env("DEV")
+PROD = env("PROD")
+NAME = env("NAME")
+PASSWORD = env("PASSWORD")
+HOST = env("HOST")
+USER = env("USER")
 
 ALLOWED_HOSTS = ["*"]
 
@@ -92,7 +104,32 @@ WSGI_APPLICATION = "api.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {"default": env.db(), "read_replica": env.db("DATABASE_RO_URL")}
+if DEV:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": NAME,
+            "USER": USER,
+            "PASSWORD": PASSWORD,
+            "HOST": HOST,
+            "PORT": "25060",
+        }
+    }
+elif PROD:
+    DEBUG = False
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": NAME,
+            "USER": USER,
+            "PASSWORD": PASSWORD,
+            "HOST": HOST,
+            "PORT": "25060",
+        }
+    }
+else:
+    DATABASES = {"default": env.db(), "read_replica": env.db("DATABASE_RO_URL")}
+
 
 REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",

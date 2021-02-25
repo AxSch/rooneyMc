@@ -11,6 +11,9 @@ django-environ = "*"
 drf-yasg = "*"
 psycopg2-binary = "*"
 django-cors-headers = "*"
+django-storages = "*"
+boto = "*"
+boto3 = "*"
 
 [dev-packages]
 pre-commit = "*"
